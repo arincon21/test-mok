@@ -4,6 +4,7 @@ import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
 function TableUsers(props) {
+    // lazy loadin
     const renderList = () => {
         if (props.usersAll.length > 0) {
             return props.usersAll.map((users, index) => <tr key={index}>
