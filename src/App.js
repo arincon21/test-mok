@@ -1,8 +1,8 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import TableUsers from './components/table/table.js';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import Header from './components/header/header.js';
+import { deleteArray } from './utils/utils.js';
 
 function App() {
 
@@ -13,20 +13,20 @@ function App() {
 
   useEffect(function () {
     fetch("https://randomuser.me/api/?page=1&results=100")
-      .then(res => res.json())
-      .then(response => {
-        const users = response.results.map(user => {
-          return { 
-            thumbnail: user.picture.thumbnail,
-            first: user.name.first,
-            last: user.name.last,
-            country: user.location.country
-          }
-        })
-        setUsersOriginal(users)
-        setUsersDelete(users)
-        setUsersVersion(users)
+    .then(res => res.json())
+    .then(response => {
+      const users = response.results.map(user => {
+        return { 
+          thumbnail: user.picture.thumbnail,
+          first: user.name.first,
+          last: user.name.last,
+          country: user.location.country
+        }
       })
+      setUsersOriginal(users)
+      setUsersDelete(users)
+      setUsersVersion(users)
+    })
   }, [])
 
   const stripedChange = () => {
@@ -62,30 +62,21 @@ function App() {
   }
 
   const deleteUser = (index) => {
-    const deleteArray = (array, index) => {
-      if (index >= 0 && index < array.length) {
-        array.splice(index, 1);
-        return array
-      } else {
-        console.error("Índice fuera de rango o inválido.");
-      }
-    }
     const result = deleteArray([...usersDelete], index);
     setUsersDelete([...result])
     setUsersVersion([...result])
   }
 
 
-
   return (
     <div className="App">
       <h1>Lista de usuarios</h1>
-      <header className='App-header'>
-        <Button variant="primary" onClick={stripedChange}>Colorea filas</Button>
-        <Button variant="primary" onClick={orderCountry}>Ordena por país</Button>
-        <Button variant="primary" onClick={restore} >Restaurar estado inicial</Button>
-        <Form.Control className='imput-mg'  onChange={filter} size="lg" type="text" placeholder="Filtrar por país" />
-      </header>
+      <Header 
+        stripedChange={stripedChange}
+        orderCountry={orderCountry}
+        restore={restore}
+        filter={filter}
+      ></Header>
       <TableUsers 
         usersAll={usersVersion} 
         striped={striped} 

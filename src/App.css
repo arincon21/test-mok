@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  padding: 20px;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+  --bs-table-color-type: #ffffff !important;
+  --bs-table-bg-type: #556677 !important;
 }
 
 .App-logo {
@@ -22,6 +28,12 @@
 
 .App-header .form-control-lg {
   width: 240px !important;
+}
+
+.App h1 {
+  padding: 20px;
+  font-size: 3.2em;
+  line-height: 1.1;
 }
 
 .App-link {
