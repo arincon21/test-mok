@@ -1,3 +1,4 @@
+// Eliminar item de la lista por indixe
 export const deleteArray = (array, index) => {
     if (index >= 0 && index < array.length) {
         array.splice(index, 1);
